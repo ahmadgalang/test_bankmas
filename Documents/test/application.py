@@ -6,10 +6,14 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 
 def test_add_todo_item():
-    driver = webdriver.Chrome()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
+    driver = webdriver.Chrome()
+    driver.maximize_window()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
     driver.get("https://todomvc.com/examples/knockoutjs/")
+    time.sleep(1)
     todo_input = driver.find_element(By.CLASS_NAME, "new-todo")
+    time.sleep(1)
     todo_input.send_keys("New Todo Item")
+    time.sleep(1)
     todo_input.send_keys(Keys.ENTER)
     time.sleep(1)
     added_item = driver.find_element(By.XPATH, "//label[contains(., 'New Todo Item')]")
@@ -18,28 +22,38 @@ def test_add_todo_item():
     driver.quit()
 
 def test_complete_todo_item():
-    driver = webdriver.Chrome()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
+    driver = webdriver.Chrome()
+    driver.maximize_window()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
     driver.get("https://todomvc.com/examples/knockoutjs/")
+    time.sleep(1)
     todo_input = driver.find_element(By.CLASS_NAME, "new-todo")
+    time.sleep(1)
     todo_input.send_keys("New Todo Item")
+    time.sleep(1)
     todo_input.send_keys(Keys.ENTER)
     time.sleep(1)
     checkbox = driver.find_element(By.CLASS_NAME, "toggle")
+    time.sleep(1)
     checkbox.click()
     time.sleep(1)
     completed_item = driver.find_element(By.CLASS_NAME, "completed")
+    time.sleep(1)
     assert completed_item.is_displayed(), "Complete Todo Item Test Failed."
     print("Complete Todo Item Test Passed.")
     driver.quit()
 
 def test_filter_todo_item():
-    driver = webdriver.Chrome()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
+    driver = webdriver.Chrome()
+    driver.maximize_window()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
     driver.get("https://todomvc.com/examples/knockoutjs/")
     todo_input = driver.find_element(By.CLASS_NAME, "new-todo")
+    time.sleep(1)
     todo_input.send_keys("New Todo Item")
+    time.sleep(1)
     todo_input.send_keys(Keys.ENTER)
     time.sleep(1)
     filter_completed = driver.find_element(By.LINK_TEXT, "Completed")
+    time.sleep(1)
     filter_completed.click()
     time.sleep(1)
 
@@ -53,29 +67,38 @@ def test_filter_todo_item():
         driver.quit()
 
 def test_delete_todo_item():
-    driver = webdriver.Chrome()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
+    driver = webdriver.Chrome()
+    driver.maximize_window()  # Ganti dengan webdriver sesuai browser yang Anda gunakan
     driver.get("https://todomvc.com/examples/knockoutjs/")
     todo_input = driver.find_element(By.CLASS_NAME, "new-todo")
+    time.sleep(1)
     todo_input.send_keys("New Todo Item")
+    time.sleep(1)
     todo_input.send_keys(Keys.ENTER)
     time.sleep(1)
     
     # Menunggu elemen delete_button menjadi interaktif
     try:
         delete_button = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.CLASS_NAME, "destroy")))
+        time.sleep(1)
         delete_button.click()
         time.sleep(1)
     except:
         print("Delete button not found or not clickable.")
     
     todo_items = driver.find_elements(By.CLASS_NAME, "todo")
+    time.sleep(1)
     assert len(todo_items) == 0, "Delete Todo Item Test Failed."
     print("Delete Todo Item Test Passed.")
+    time.sleep(1)
     driver.quit()
 
 if __name__ == "__main__":
     print("Running Selenium Tests...")
     test_add_todo_item()
+    time.sleep(1)
     test_complete_todo_item()
+    time.sleep(1)
     test_filter_todo_item()
+    time.sleep(1)
     test_delete_todo_item()
